@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Primavera.WebAPI.Integration;
+using StdBE100;
 
 namespace ExtWebAPIV10
 {
@@ -69,6 +70,21 @@ namespace ExtWebAPIV10
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message));
             }
+        }
+
+        [Authorize]
+        [Route("MyLstClientes")]
+        [HttpGet]
+        public StdBELista LstClientes()
+        {
+            // var lstclientes = ProductContext.MotorLE.Base.Clientes.LstClientes("");
+
+            var strSQL = string.Empty;
+            strSQL = "SELECT * FROM Clientes WITH (NOLOCK)" + strSQL;
+
+
+            var lstclientes = ProductContext.MotorLE.Consulta(strSQL);
+            return lstclientes;
         }
     }
 }
