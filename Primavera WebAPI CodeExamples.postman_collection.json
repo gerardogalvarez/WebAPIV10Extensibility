@@ -1,0 +1,713 @@
+{
+	"info": {
+		"_postman_id": "f186b4b3-ea0c-41cb-af82-d86193d4bb64",
+		"name": "Primavera WebAPI CodeExamples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PrintSalesDocToPDF",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{{docType}}/{{docSerie}}/{{docNum}}/000/1/{{mapa}}/false/doc{{docType}}{{docSerie}}{{docNum}}/1",
+					"host": [
+						"{{apiUrl}}ClassExtended"
+					],
+					"path": [
+						"PrintSalesDocToPDF",
+						"{{docType}}",
+						"{{docSerie}}",
+						"{{docNum}}",
+						"000",
+						"1",
+						"{{mapa}}",
+						"false",
+						"doc{{docType}}{{docSerie}}{{docNum}}",
+						"1"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "MyLstClientes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "68af9a66-4e5f-4336-a33c-5fcaab96f64d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}ClassExtended/MyLstClientes",
+					"host": [
+						"{{apiUrl}}ClassExtended"
+					],
+					"path": [
+						"MyLstClientes"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Faltas - Lst",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8b607ccc-5497-48c8-91a8-fa54c585ca3f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/Faltas/Lst",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"Faltas",
+						"Lst"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Faltas - Edita",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "962f3a1a-230f-49a7-931b-6d49682444b1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/Faltas/Edita/F01GG",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"Faltas",
+						"Edita",
+						"F01GG"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Internal Documents (STK) - Edita",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9ab70404-ca95-4307-a36c-33443fedb1d2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}INTExtended/Documentos/Edita/ES/2020/1",
+					"host": [
+						"{{apiUrl}}INTExtended"
+					],
+					"path": [
+						"Documentos",
+						"Edita",
+						"ES",
+						"2020",
+						"1"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Alt. Mensais Faltas - Edita",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad64f2ea-f850-4417-bbbb-51dee78f70f8",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/CadastroFaltas/Edita/001/F01/01-02-2020/0",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"CadastroFaltas",
+						"Edita",
+						"001",
+						"F01",
+						"01-02-2020",
+						"0"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Faltas - Actualiza",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "858ddfb4-f16e-4116-9098-1e5401192d5f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"CotizaPeloMinimo\": false,\r\n    \"Falta\": \"F01GG\",\r\n    \"Descricao\": \"Baixa Médica F01GG\",\r\n    \"PosicaoBS\": \"2\",\r\n    \"MotivoCadastro\": \"2\",\r\n    \"Doenca\": \"\",\r\n    \"Horas\": true,\r\n    \"CalculoFaltaDias\": false,\r\n    \"DescontaSubsAlimentacao\": true,\r\n    \"DescontaRemuneracoes\": 1,\r\n    \"DescontaSubsTurno\": true,\r\n    \"SituacaoCGA\": \"\",\r\n    \"TrataSegSoc\": 1,\r\n    \"Percentual\": false,\r\n    \"ValorPercentagem\": 0.0,\r\n    \"HorasNaoTrabalhadasRU\": \"\",\r\n    \"HorasNormaisNaoRemuneradasRU\": \"\",\r\n    \"PeriodoMaximo\": 0,\r\n    \"EmModoEdicao\": true,\r\n    \"RemuneracoesTotais\": [],\r\n    \"RemuneracoesParciais\": [],\r\n    \"AfectaProgCarreira\": false,\r\n    \"UsarPercentagemCGA\": false,\r\n    \"PercentagemCGA\": 0.0,\r\n    \"CodigoTabLog\": \"Falta\",\r\n    \"ChaveLog\": \"Falta\",\r\n    \"EstadoBE\": \"\",\r\n    \"CamposUtil\": [],\r\n    \"Conteudo\": \"FaltaF01GGDescricaoBaixa Médica GGPosicaoBS2MotivoCadastro2DoencaHorasTrueCalculoFaltaDiasFalseDescontaSubsAlimentacaoTrueDescontaRemuneracoes1DescontaSubsTurnoTrueSituacaoCGATrataSegSoc1PercentualFalseValorPercentagem0PeriodoMaximo0CotizaPeloMinimoFalseHorasNaoTrabalhadasRUHorasNormaisNaoRemuneradasRUAfectaProgCarreiraFalseUsarPercentagemCGAFalsePercentagemCGA0\",\r\n    \"PropExcluirLog\": \"\",\r\n    \"AbvtApl\": \"RHP\",\r\n    \"Categoria\": \"\",\r\n    \"DescricaoEntidade\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/Faltas/Actualiza/",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"Faltas",
+						"Actualiza",
+						""
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Alt. Mensais Faltas - Actualiza",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cd296167-d97b-4388-bc35-371797629776",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MotivoAcerto\": null,\r\n    \"Acerto\": 0,\r\n    \"CotizaPeloMinimo\": false,\r\n    \"CambioMAlt\": 0.0,\r\n    \"CambioMBase\": 0.0,\r\n    \"Funcionario\": \"001\",\r\n    \"Data\": \"2020-01-03T00:00:00\",\r\n    \"Falta\": \"F01\",\r\n    \"Horas\": true,\r\n    \"Tempo\": 1.0,\r\n    \"Observacoes\": \"Teste GG.\",\r\n    \"CalculoFalta\": false,\r\n    \"DataProc\": \"0001-01-01T00:00:00\",\r\n    \"NumPeriodoProcessado\": 0,\r\n    \"AnoProcessado\": 0,\r\n    \"JaProcessado\": false,\r\n    \"InseridoBloco\": false,\r\n    \"ValorDescontado\": 0.0,\r\n    \"Origem\": 2,\r\n    \"PlanoCurso\": null,\r\n    \"IdGDOC\": null,\r\n    \"EmModoEdicao\": false,\r\n    \"CodigoTabLog\": \"CadastroFalta\",\r\n    \"ChaveLog\": \"Funcionario,Data,Falta,Acerto\",\r\n    \"EstadoBE\": \"\",\r\n    \"NumProc\": 0,\r\n    \"NumRelatorioDespesa\": 0,\r\n    \"NumLinhaDespesa\": 0,\r\n    \"CamposUtil\": [],\r\n    \"PropExcluirLog\": \"\",\r\n    \"AbvtApl\": \"RHP\",\r\n    \"Categoria\": \"\",\r\n    \"DescricaoEntidade\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/CadastroFaltas/Actualiza/",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"CadastroFaltas",
+						"Actualiza",
+						""
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Alt. Mensais Faltas - Actualiza Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4354f2d1-5094-4f5b-91b5-4381ea97cd40",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/CadastroFaltas/Actualiza/001/F01/01-03-2020",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"CadastroFaltas",
+						"Actualiza",
+						"001",
+						"F01",
+						"01-03-2020"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Alt. Mensais Faltas - Remove",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e63450e9-cfb0-4de3-9812-a250e79f21af",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"MotivoAcerto\": null,\r\n    \"Acerto\": 0,\r\n    \"CotizaPeloMinimo\": false,\r\n    \"CambioMAlt\": 0.0,\r\n    \"CambioMBase\": 0.0,\r\n    \"Funcionario\": \"001\",\r\n    \"Data\": \"2020-01-03T00:00:00\",\r\n    \"Falta\": \"F01\",\r\n    \"Horas\": true,\r\n    \"Tempo\": 1.0,\r\n    \"DescontaVenc\": false,\r\n    \"DescontaRem\": false,\r\n    \"ExcluiProc\": false,\r\n    \"ExcluiEstat\": false,\r\n    \"Observacoes\": \"Teste GG.\",\r\n    \"CalculoFalta\": false,\r\n    \"DescontaSubsAlim\": false,\r\n    \"DataProc\": \"0001-01-01T00:00:00\",\r\n    \"NumPeriodoProcessado\": 0,\r\n    \"AnoProcessado\": 0,\r\n    \"JaProcessado\": false,\r\n    \"InseridoBloco\": false,\r\n    \"ValorDescontado\": 0.0,\r\n    \"Origem\": 2,\r\n    \"PlanoCurso\": null,\r\n    \"IdGDOC\": null,\r\n    \"EmModoEdicao\": false,\r\n    \"CodigoTabLog\": \"CadastroFalta\",\r\n    \"ChaveLog\": \"Funcionario,Data,Falta,Acerto\",\r\n    \"EstadoBE\": \"\",\r\n    \"NumProc\": 0,\r\n    \"NumRelatorioDespesa\": 0,\r\n    \"NumLinhaDespesa\": 0,\r\n    \"CamposUtil\": [],\r\n    \"PropExcluirLog\": \"\",\r\n    \"AbvtApl\": \"RHP\",\r\n    \"Categoria\": \"\",\r\n    \"DescricaoEntidade\": \"\"\r\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/CadastroFaltas/Remove/001/F01/01-03-2020",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"CadastroFaltas",
+						"Remove",
+						"001",
+						"F01",
+						"01-03-2020"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "LstRemuneracoes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f0f76a59-336a-4c57-a207-6df747e87431",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/LstRemuneracoes",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"LstRemuneracoes"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "LstAusencias",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1f0cdaa4-6324-45bb-9495-39fa01a9f904",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/LstAusencias",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"LstAusencias"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "LstFuncionarios",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c6a4bf61-d2cd-476c-ba5a-d4924d6fdf5e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiUrl}}RHExtended/LstFuncionarios",
+					"host": [
+						"{{apiUrl}}RHExtended"
+					],
+					"path": [
+						"LstFuncionarios"
+					]
+				},
+				"description": "{{apiUrl}}ClassExtended/PrintSalesDocToPDF/{TipoDoc}/{Serie}/{Numdoc}/{Filial}/{Numvias}/{NomeReport}/{SegundaVia}/{NomePDF}/{EntidadeFacturacao}"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Sales Document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Linhas\": [\r\n    {\r\n      \"Artigo\": \"A0001\",\r\n      \"Quantidade\": \"1\"\r\n    },\r\n    {\r\n      \"Artigo\": \"A0002\",\r\n      \"Quantidade\": \"1\"\r\n    }\r\n  ],\r\n  \"Tipodoc\": \"FA\",\r\n  \"Serie\": \"C\",\r\n  \"Entidade\": \"ALCAD\",\r\n  \"TipoEntidade\": \"C\",\r\n  \"DataDoc\":\"20201305\",\r\n  \"DataVenc\":\"20201305\"\r\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}Vendas/Docs/CreateDocument/",
+					"host": [
+						"{{apiUrl}}Vendas"
+					],
+					"path": [
+						"Docs",
+						"CreateDocument",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Internal Documents (STK) - Create Document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{secondToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Linhas\": [\r\n    {\r\n      \"Artigo\": \"GAR027\",\r\n      \"Quantidade\": \"1\"\r\n    }\r\n  ],\r\n  \"Tipodoc\": \"SS\",\r\n  \"Serie\": \"2020\",\r\n  \"DataDoc\":\"2020-05-13\",\r\n  \"DataVencimento\":\"2020-05-13\"\r\n}"
+				},
+				"url": {
+					"raw": "{{apiUrl}}INTExtended/Documentos/CreateDocument/",
+					"host": [
+						"{{apiUrl}}INTExtended"
+					],
+					"path": [
+						"Documentos",
+						"CreateDocument",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6de899f9-a209-444e-8642-110512a2ff00",
+				"type": "text/javascript",
+				"exec": [
+					"const echoPostRequest = {",
+					"    url: pm.environment.get(\"apiUrl\") + '/token',",
+					"    method: 'POST',",
+					"    headers: {'Content-Type' :'application/x-www-form-urlencoded'},",
+					"    body: {",
+					"          mode: 'urlencoded',",
+					"          urlencoded: [",
+					"            {key: \"grant_type\", value: pm.environment.get(\"grandType\"), disabled: false},",
+					"            {key: \"username\", value: pm.environment.get(\"username\"), disabled: false},",
+					"            {key: \"password\", value: pm.environment.get(\"password\"), disabled: false},",
+					"            {key: \"company\", value: pm.environment.get(\"company\"), disabled: false},",
+					"            {key: \"instance\", value: pm.environment.get(\"instance\"), disabled: false}",
+					"        ]",
+					"      }",
+					"};",
+					"",
+					"        pm.sendRequest(echoPostRequest, function (err, res) {",
+					"",
+					"        if (err === null) {",
+					"",
+					"            console.log('Saving the token');",
+					"",
+					"            var responseJson = res.json();",
+					"",
+					"            pm.environment.set('secondToken', responseJson.access_token);       ",
+					"            ",
+					"            console.log('Bearer ' + responseJson.access_token);",
+					"        }",
+					"    });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "91c763ca-cb65-4388-a156-8288d3c2ac35",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
