@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using Primavera.WebAPI.Integration;
 using StdBE100;
 using RhpBE100;
+using IntBE100;
 
 namespace ExtWebAPIV10
 {
@@ -78,6 +75,7 @@ namespace ExtWebAPIV10
         [HttpGet]
         public StdBELista LstClientes()
         {
+            // Motor:
             // var lstclientes = ProductContext.MotorLE.Base.Clientes.LstClientes("");
 
             var strSQL = string.Empty;
@@ -224,25 +222,144 @@ namespace ExtWebAPIV10
             }
         }
 
+        private RhpBECadastroFalta InsereFaltaAltMens(string CodigoFuncionario, DateTime Data, double Duracao, string Observacoes, out string MensagemErro, RhpBEFalta Falta = null, bool FaltaAssociada = false, bool ExcluirProcessamento = false, bool ExcluirEstatisticas = false)
+        {
+            MensagemErro = "";
+            try
+            {
+                if (Falta == null)
+                {
+                    MensagemErro = "A falta não existe";
+                    return null;
+                }
+
+                CodigoFuncionario = CodigoFuncionario.ToUpper().Trim();
+
+                RhpBECadastroFalta cadastroFalta = new RhpBECadastroFalta
+                {
+                    EmModoEdicao = ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.Existe(CodigoFuncionario, Data, Falta.Falta),
+                    Funcionario = CodigoFuncionario,
+                    Falta = Falta.Falta,
+                    Data = Data,
+                    CalculoFalta = Falta.CalculoFaltaDias,
+                    Horas = Falta.Horas,
+                    DescontaRem = Falta.DescontaRemuneracoes != 0,
+                    Observacoes = Observacoes,
+                    // Origem = (byte)RhpStdComuns.OrigemDadosToInteger(OrigemDados.origemAltMens)
+                    Origem = (byte)OrigemDados.origemAltMens
+                };
+
+                //Verifica se estamos a inserir uma falta automaticamente associada à falta introduzida pelo utilizador (ex: Sub. Alim.)
+                double quantidade = Duracao;
+                if (FaltaAssociada)
+                {
+                    if (cadastroFalta.Falta == ProductContext.MotorLE.RecursosHumanos.Params.CodFaltaAlim)
+                    {
+                        // quantidade = ProductContext.MotorLE.Base..Arredonda(quantidade + 0.1d, 0);
+                    }
+                    //Falta de subs alimentação sempre em valores inteiros
+                    //A falta original foi inserida em dias (só neste caso a falta associada é inserida automaticamente)
+                    //mas a falta associada está configurada em horas. É necessário converter os X dias para Y horas
+                    if (cadastroFalta.Horas)
+                        cadastroFalta.Tempo = (float)(quantidade * ProductContext.MotorLE.RecursosHumanos.Funcionarios.NumeroHorasNumDia(CodigoFuncionario));
+                    else
+                        cadastroFalta.Tempo = (float)quantidade;
+                }
+                else
+                {
+                    cadastroFalta.Tempo = (float)quantidade;
+                }
+
+                cadastroFalta.InseridoBloco = true;
+                // cadastroFalta.Origem = (byte)RhpStdComuns.OrigemDadosToInteger(OrigemDados.origemAltMens);
+                cadastroFalta.Origem = (byte)OrigemDados.origemAltMens;
+                cadastroFalta.ExcluiProc = ExcluirProcessamento;
+                cadastroFalta.ExcluiEstat = ExcluirEstatisticas;
+
+                //Não é usado o actualiza do motor porque insere automaticamente 1 falta de subsídio de alimentação e/ou turno
+                //o que não interessa neste caso. Aqui é dada ao utilizador a decisão de as introduzir ou não e em que quantidade.
+                if (ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.Existe(cadastroFalta.Funcionario, cadastroFalta.Data, cadastroFalta.Falta) && !cadastroFalta.EmModoEdicao)
+                {
+                    // throw new Primavera.Platform.Exceptions.ExpectedException(Primavera.Platform.Helpers.StdErros.StdErroPrevisto, "_InsereFaltaAltMens", ProductContext.MotorLE.DSO.Plat.Strings.Formata(RhpRLL.Resources.RES_str5952, cadastroFalta.Falta, cadastroFalta.Funcionario, cadastroFalta.Data));
+                }
+                if (ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.ValidaLimitesAplicabilidade(cadastroFalta.Funcionario, cadastroFalta.Falta, cadastroFalta.Data, cadastroFalta.Tempo, ref MensagemErro))
+                    ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.Actualiza(cadastroFalta);
+                else
+                    return null;
+
+                return cadastroFalta;
+
+            }
+            catch (Exception Ex)
+            {
+                MensagemErro = Ex.Message;
+                return null;
+            }
+        }
+
         [Authorize]
         [Route("CadastroFaltas/Actualiza/{strFuncionario}/{strFalta}/{dtData}/")]
         [HttpPost]
         public void ActualizaCadastroFaltas(String strFuncionario, DateTime dtData, string strFalta, int intAcerto = 0)
         {
 
-            RhpBECadastroFalta BECadastroFalta = new RhpBECadastroFalta();
+            string Observacoes = String.Empty;
+            bool ExcluirProcessamento = false;
+            bool ExcluirEstatisticas = false;
 
-            BECadastroFalta.EmModoEdicao = ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.Existe(strFuncionario, dtData, strFalta);
-
-            BECadastroFalta.Funcionario = strFuncionario;
-            BECadastroFalta.Falta = strFalta;
-            BECadastroFalta.Data = dtData;
-            BECadastroFalta.Horas = false;
-            BECadastroFalta.Tempo = 1;
+            RhpBEFalta Falta = ProductContext.MotorLE.RecursosHumanos.Faltas.Edita(strFalta);
 
             try
             {
-                ProductContext.MotorLE.RecursosHumanos.CadastroFaltas.Actualiza(BECadastroFalta);
+
+                string mensagemErro = "";
+
+                //Insere a falta Inicial
+                InsereFaltaAltMens(strFuncionario, dtData, 1, Observacoes, out mensagemErro, Falta, false, ExcluirProcessamento, ExcluirEstatisticas);
+
+                mensagemErro = "";
+
+                try
+                {
+
+                    Falta = ProductContext.MotorLE.RecursosHumanos.Faltas.Edita(strFalta);
+
+                    //Valida se a falta têm dependencias de sub alimentação ou sub turno (Apenas lança faltas se estiver configurada em dias)
+                    if (!Falta.Horas && Falta.Falta != ProductContext.MotorLE.RecursosHumanos.Params.CodFaltaAlim && Falta.Falta != ProductContext.MotorLE.RecursosHumanos.Params.CodFaltaTurno)
+                    {
+                        StdBE100.StdBECampos camposFuncionario = ProductContext.MotorLE.RecursosHumanos.Funcionarios.DaValorAtributos(strFuncionario, "Instrumento", "SubsAlim1", "SubsAlim2", "TurnosDia", "TurnosTaxa");
+
+                        int val = 0;
+
+                        int.TryParse(camposFuncionario["SubsAlim1"].Valor.ToString(), out val);
+
+                        if (val == 0)
+                            int.TryParse(camposFuncionario["SubsAlim2"].Valor.ToString(), out val);
+
+                        if (Falta.DescontaSubsAlimentacao && val != 0)
+                        {
+                            RhpBEFalta faltaDependente = ProductContext.MotorLE.RecursosHumanos.Faltas.Edita(ProductContext.MotorLE.RecursosHumanos.Params.CodFaltaAlim);
+                            InsereFaltaAltMens(strFuncionario, dtData, 1, Observacoes, out mensagemErro, faltaDependente, true, ExcluirProcessamento, ExcluirEstatisticas);
+                        }
+
+                        val = 0;
+
+                        int.TryParse(camposFuncionario["TurnosTaxa"].Valor.ToString(), out val);
+
+                        if (val == 0)
+                            int.TryParse(camposFuncionario["TurnosDia"].Valor.ToString(), out val);
+
+                        if (Falta.DescontaSubsTurno && val != 0)
+                        {
+                            RhpBEFalta faltaDependente = ProductContext.MotorLE.RecursosHumanos.Faltas.Edita(ProductContext.MotorLE.RecursosHumanos.Params.CodFaltaTurno);
+                            InsereFaltaAltMens(strFuncionario, dtData, 1, Observacoes, out mensagemErro, faltaDependente, true, ExcluirProcessamento, ExcluirEstatisticas);
+                        }
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    mensagemErro = Ex.Message;
+                }
             }
             catch (Exception ex)
             {
@@ -265,4 +382,64 @@ namespace ExtWebAPIV10
             }
         }
     }
+
+    [RoutePrefix("INTExtended")]
+    public class INTExtendedController : ApiController
+    {
+
+        [Authorize]
+        [Route("Documentos/Edita/{strTipoDoc}/{strSerie}/{intNumDoc}/")]
+        [HttpGet]
+        public IntBEDocumentoInterno EditaDocumentoInterno(string strTipoDoc, string strSerie, int intNumDoc)
+        {
+            try
+            {
+                var edita = ProductContext.MotorLE.Internos.Documentos.Edita(strTipoDoc, intNumDoc, strSerie, "000");
+
+                return edita;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message));
+            }
+        }
+
+        [Route("Documentos/CreateDocument/")]
+        [HttpPost]
+        public bool CreateDocument([FromBody] IntBEDocumentoInterno clsDocumentoInterno)
+        {
+            IntBEDocumentoInterno clsDocumento = new IntBEDocumentoInterno
+            {
+                Entidade = clsDocumentoInterno.Entidade,
+                Tipodoc = clsDocumentoInterno.Tipodoc,
+                TipoEntidade = clsDocumentoInterno.TipoEntidade,
+                Serie = clsDocumentoInterno.Serie,
+                Data = clsDocumentoInterno.Data,
+                DataVencimento = clsDocumentoInterno.DataVencimento 
+            };
+
+            clsDocumento.Linhas.RemoveTodos();
+
+            try
+            {
+                ProductContext.MotorLE.Internos.Documentos.PreencheDadosRelacionados(clsDocumento);
+
+                foreach (IntBELinhaDocumentoInterno linha in clsDocumentoInterno.Linhas)
+                {
+                    double quantidade = linha.Quantidade;
+
+                    ProductContext.MotorLE.Internos.Documentos.AdicionaLinha(clsDocumento, linha.Artigo, Armazem: linha.Armazem, Lote: linha.Lote, Quantidade:quantidade);
+                }
+
+                ProductContext.MotorLE.Internos.Documentos.Actualiza(clsDocumento);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
 }
